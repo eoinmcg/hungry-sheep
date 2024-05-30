@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import {version} from '../package.json';
+import Cloud from './components/Cloud';
 
 import Tune from './sfx/splash.mp3';
 
@@ -43,6 +44,8 @@ const Splash = () => {
       <h1 className="logo">Hungry Sheep</h1>
       <Link className="btn" to="/tutorial">Play</Link>
       <Link className="btn" to="/info">Info</Link>
+      <Cloud />
+      <Cloud size="small" top="180" />
       <div className="version">{version}</div>
     </div>
   )
