@@ -88,10 +88,12 @@ a.btn:hover {
 }
 
 .game.splash .init {
+  position: absolute;
   background: #333;
   width: 100%;
   height: 100%;
   color: #fff;
+  z-index: 10000;
 }
 
 .game.splash .init span {
@@ -278,6 +280,26 @@ a.btn:hover {
   animation-play-state: paused !important;
 }
 
+.cloud {
+  position: absolute;
+  top: 10px;
+  left: 40px;
+  width: 30px;
+  height: 30px;
+  background-image: url(cloud.svg);
+  background-size: cover;
+  opacity: 0.5;
+  animation: drift 20s 1 linear;
+}
+
+.cloud.small {
+  width: 20px;
+  height: 20px;
+  opacity: 0.3;
+  animation: drift 25s 1 linear;
+  transform: scale(-1, 1);
+}
+
 .game.complete {
   overflow: hidden;
   background-color: transparent;
@@ -341,8 +363,6 @@ a.replay:hover {
   to { transform:rotate(360deg); }
 }
 
-
-
 @keyframes run {
   0% { transform: rotate(-10deg); }
   20% { transform: rotate(10deg); }
@@ -351,7 +371,6 @@ a.replay:hover {
   80% { transform: rotate(-15deg); }
   100% { transform: rotate(10deg); }
 }
-
 
 @keyframes pulse {
   0% { transform: scale(1)}
@@ -406,12 +425,10 @@ a.replay:hover {
   100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
+@keyframes drift { 0%{ left: 0%; } 100% { left: 95%%; } }
 
-@keyframes flash {
-  50% {
-    opacity: 0;
-  }
-}
+
+@keyframes flash { 50% { opacity: 0; } }
 
 @keyframes fadein {
   from { opacity: 0; }
