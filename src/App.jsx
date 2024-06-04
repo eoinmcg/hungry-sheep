@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 
 import Splash from './Splash.jsx';
@@ -12,9 +11,39 @@ import Win from './Win.jsx';
 import resize from './helpers/resize';
 
 
+// user must interact with screen before music is played
+// 'Click Me' screen is displayed rather than splash screen
+// until interaction occurs
+export const TappedContext = React.createContext({
+  tapped: false,
+  setTapped: () => { return true; }
+});
+
+export const LevelContext = React.createContext({
+  level: 0,
+  setLevel: (level) => { return level; }
+});
+
+export const SkipTutorialContext = React.createContext({
+  skipTutorial: false,
+  setSkipTutorial: () => { return true; }
+});
+
  const App = () => {
 
+  const [tapped, setTapped] = useState(false);
+  const tappedValue = { tapped, setTapped };
+
+  const [level, setLevel] = useState(0);
+  const levelValue = { level, setLevel };
+
+  const [skipTutorial, setSkipTutorial] = useState(false);
+  const skipTutorialValue = { skipTutorial, setSkipTutorial };
+
    return (
+    <TappedContext.Provider value={tappedValue}>
+    <LevelContext.Provider value={levelValue}>
+    <SkipTutorialContext.Provider value={skipTutorialValue}>
         <HashRouter>
           <Routes>
             <Route path="/" element={ <Splash /> } />
@@ -25,6 +54,9 @@ import resize from './helpers/resize';
             <Route path="/win" element={ <Win /> } />
           </Routes>
           </HashRouter>
+      </SkipTutorialContext.Provider>
+      </LevelContext.Provider>
+      </TappedContext.Provider>
    );
 };
 

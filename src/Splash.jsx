@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+
+import { TappedContext, LevelContext, SkipTutorialContext } from './App';
 
 import {version} from '../package.json';
 import Cloud from './components/Cloud';
@@ -8,41 +10,42 @@ import Tune from './sfx/splash.mp3';
 
 const Splash = () => {
 
-  let hasTapped = window.hasTapped || false
-  const [init, setInit] = useState(hasTapped);
+  const { tapped, setTapped } = useContext(TappedContext);
+  const { level, setLevel } = useContext(LevelContext);
+  const { SkipTutorial } = useContext(SkipTutorialContext);
 
   const music = new Audio(Tune);
 
   useEffect(() => {
-    if (init) {
+    if (tapped) {
       music.play();
     }
 
     return function cleanup() {
       music.pause();
     };
+  });
 
-  })
-
-  const removeInit = () => {
-    window.hasTapped = true;
+  const firstTap = () => {
+    setTapped(true);
     music.play();
-    setInit(true)
   }
 
   useEffect(() => {
-    window.sessionStorage.setItem('level', 0);
+    setLevel(0);
   });
 
   const hasTouch = ('ontouchstart' in document.documentElement);
 
   return (
-    <div className="game splash">
-      <div className={`init ${init ? 'skip' : ''}`} onClick={removeInit}>
+    <div className={`game splash ${tapped ? 'ready' : 'not-ready'}`}>
+      <div className={`init ${tapped ? 'skip' : ''}`} onClick={firstTap}>
         <span>{hasTouch ? 'Tap' : 'Click'} Me!</span>
       </div>
       <h1 className="logo">Hungry Sheep</h1>
-      <Link className="btn" to="/tutorial">Play</Link>
+      <Link className="btn" to={`/${SkipTutorial ? 'play' : 'tutorial' }`}>
+        Play
+      </Link>
       <Link className="btn" to="/info">Info</Link>
       <Cloud />
       <Cloud size="small" top="180" />

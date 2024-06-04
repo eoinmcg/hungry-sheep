@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+
+import { SkipTutorialContext } from './App';
 
 import Bleet from './sfx/sheep.mp3';
 import Bite from './sfx/bite.mp3';
@@ -14,7 +16,10 @@ const Tutorial = () => {
   };
   const navigate = useNavigate();
 
+  const { SkipTutorial, setSkipTutorial } = useContext(SkipTutorialContext);
+
   const play = () => {
+    setSkipTutorial(true);
     navigate('/play');
   }
 

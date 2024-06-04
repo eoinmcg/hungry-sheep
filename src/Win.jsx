@@ -1,9 +1,16 @@
+import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Confetti from 'react-confetti';
 
+import { LevelContext } from './App';
+
 const Win = () => {
 
-  window.sessionStorage.setItem('level', 0);
+  const { level, setLevel } = useContext(LevelContext);
+
+  useEffect(() => {
+    setLevel(0);
+  });
 
   return (
     <>

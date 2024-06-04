@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+
+import { LevelContext } from './App';
 
 import Level1 from './levels/level1';
 import Level2 from './levels/level2';
@@ -23,8 +25,9 @@ function Play() {
     levelup: new Audio(Levelup),
   }
 
-  let currentLevel = window.sessionStorage.getItem('level') || 0;
-  currentLevel = parseInt(currentLevel, 10);
+
+  const { level, setLevel } = useContext(LevelContext);
+  let currentLevel = level || 0;
   const levels = [ Level1, Level2, Level3, Level4, Level5 ];
 
   const [sheepHit, setSheepHit] = useState(false);
@@ -56,7 +59,7 @@ function Play() {
           sfx.levelup.play();
           setLevelComplete(true);
           window.setTimeout(() => {
-            window.sessionStorage.setItem('level', currentLevel + 1);
+            setLevel(currentLevel + 1);
             sfx.levelup.currentTime = 0;
             sfx.levelup.pause();
             replay();

@@ -21,6 +21,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  transform: translateZ(0);
 }
 
 h1 {
@@ -81,10 +82,12 @@ a.btn:hover {
 }
 
 .game.splash {
-  background: green;
+  background: #729fcf;
   background-image: url('splash.svg');
-  background-size: cover;
+  background-repeat: no-repeat;
+  background-size: 100%;
   text-align: center;
+  transition: background-position-y 1.5s ease-in-out;
 }
 
 .game.splash .init {
@@ -108,6 +111,15 @@ a.btn:hover {
   display: none;
 }
 
+.game.splash.not-ready { opacity: 0; }
+.game.splash.ready { opacity: 1; }
+
+.game.splash.not-ready { background-position-y: 800px; }
+.game.splash.ready {  background-position-y: 0px; }
+
+.game.splash h1.logo { transition: all 1s ease-in-out; }
+.game.splash.not-ready h1.logo {margin-top: -300px; }
+.game.splash.ready h1.logo {margin-top: 50px; }
 
 .game.splash .init:hover {
   cursor: pointer;
@@ -353,7 +365,6 @@ a.replay:hover {
 
 @keyframes level1 {
   0% { top: 90%; }
-  49% { top: 5%;  }
   50% { top: 5%;  }
   100% { top: 105%; }
 }
