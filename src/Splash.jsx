@@ -11,7 +11,7 @@ import Tune from './sfx/splash.mp3';
 const Splash = () => {
 
   const { tapped, setTapped } = useContext(TappedContext);
-  const { level, setLevel } = useContext(LevelContext);
+  const { setLevel } = useContext(LevelContext);
   const { SkipTutorial } = useContext(SkipTutorialContext);
 
   const music = new Audio(Tune);
