@@ -5,6 +5,7 @@ import { TappedContext, LevelContext, SkipTutorialContext } from './App';
 
 import {version} from '../package.json';
 import Cloud from './components/Cloud';
+console.log('V: ', version);
 
 import Tune from './sfx/splash.mp3';
 
