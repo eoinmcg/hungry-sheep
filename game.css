@@ -24,11 +24,28 @@ body {
   transform: translateZ(0);
 }
 
+div#mute {
+  position: relative;
+  top: 20px;
+  left: 260px;
+  width: 24px;
+  height: 24px;
+  background-image: url('mute.svg');
+  background-size: cover;
+  opacity: 0.7;
+}
+
+
+div#mute.muted { background-image: url('unmute.svg'); }
+
+div#mute:hover { cursor: pointer; opacity: 1; }
+
 h1 {
   font-family: "Sniglet", system-ui;
   font-size: 3.5rem;
   font-weight: 800;
   letter-spacing: -2px;
+  line-height: 3rem;
   color: #fff;
   text-shadow: black 0px 7px;
   text-transform: uppercase;
@@ -143,7 +160,7 @@ a.btn:hover {
   text-decoration: none;
   font-weight: bold;
   opacity: 0.7;
-  width: 300px;
+  width: 280px;
 }
 
 
