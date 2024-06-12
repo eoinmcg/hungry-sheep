@@ -2,17 +2,14 @@ import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { SkipTutorialContext } from './App';
-
-import Bleet from './sfx/sheep.mp3';
-import Bite from './sfx/bite.mp3';
-import Click from './sfx/click.mp3';
+import { MuteButton, playAudio } from './components/Audio';
 
 const Tutorial = () => {
 
   const sfx = {
-    bleet: new Audio(Bleet),
-    bite: new Audio(Bite),
-    click: new Audio(Click),
+    bleet: playAudio('Bleet'),
+    bite: playAudio('Bite'),
+    click: playAudio('Click'),
   };
   const navigate = useNavigate();
 
@@ -42,6 +39,7 @@ const Tutorial = () => {
 
   return (
     <div className="game splash info" onClick={updateStep}>
+      <MuteButton />
       <Link className="skip" to="/play">Skip &gt;</Link>
       <h2 style={{overflow: 'auto'}}>How To Play</h2>
 

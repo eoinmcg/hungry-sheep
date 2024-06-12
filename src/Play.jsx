@@ -9,21 +9,18 @@ import Level3 from './levels/level3';
 import Level4 from './levels/level4';
 import Level5 from './levels/level5';
 
-import Bleet from './sfx/sheep.mp3';
-import Hit from './sfx/hit.mp3';
-import Bite from './sfx/bite.mp3';
-import Levelup from './sfx/levelup.mp3';
+import { MuteButton, playAudio } from './components/Audio';
 
 import overlap from './helpers/overlap';
 
 function Play() {
 
   const sfx = {
-    bleet: new Audio(Bleet),
-    hit: new Audio(Hit),
-    bite: new Audio(Bite),
-    levelup: new Audio(Levelup),
-  }
+    bleet: playAudio('Bleet'),
+    hit: playAudio('Hit'),
+    bite: playAudio('Bite'),
+    levelup: playAudio('Levelup'),
+  };
 
 
   const { level, setLevel } = useContext(LevelContext);
@@ -91,8 +88,12 @@ function Play() {
 
   useEffect(() => {
 
-    const handleDown = () => { setisMoving(true); }
-    const handleUp = () => { setisMoving(false); }
+    const handleDown = (e) => {
+      if (e.target.id !== 'mute') {
+        setisMoving(true);
+      }
+    }
+    const handleUp = (e) => { setisMoving(false); }
     const handleMove = (e) => { e.preventDefault(); }
 
     window.addEventListener('keypress', handleDown);
@@ -128,6 +129,7 @@ function Play() {
           ${levelComplete === true ? 'complete' : ''}
           ${sheepHit === true ? 'hit' : 'play'}
           ${isMoving ? 'tap' : ''}`}>
+          <MuteButton />
           <Link className="replay" to="/reload"> Replay</Link>
           <Level sheepHit={sheepHit} munched={munched} isMoving={isMoving} /> </div>
       </>

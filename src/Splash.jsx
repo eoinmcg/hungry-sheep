@@ -1,13 +1,11 @@
-import { useState, useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import { TappedContext, LevelContext, SkipTutorialContext } from './App';
 
-import {version} from '../package.json';
+import { version } from '../package.json';
+import { MuteButton, playAudio } from './components/Audio';
 import Cloud from './components/Cloud';
-console.log('V: ', version);
-
-import Tune from './sfx/splash.mp3';
 
 const Splash = () => {
 
@@ -15,7 +13,7 @@ const Splash = () => {
   const { setLevel } = useContext(LevelContext);
   const { SkipTutorial } = useContext(SkipTutorialContext);
 
-  const music = new Audio(Tune);
+  const music = playAudio('Tune');
 
   useEffect(() => {
     if (tapped) {
@@ -43,13 +41,14 @@ const Splash = () => {
       <div className={`init ${tapped ? 'skip' : ''}`} onClick={firstTap}>
         <span>{hasTouch ? 'Tap' : 'Click'} Me!</span>
       </div>
+      <MuteButton />
       <h1 className="logo">Hungry Sheep</h1>
-      <Link className="btn" to={`/${SkipTutorial ? 'play' : 'tutorial' }`}>
+      <Link className="btn" to={`/${SkipTutorial ? 'play' : 'tutorial'}`}>
         Play
       </Link>
       <Link className="btn" to="/info">Info</Link>
-      <Cloud />
-      <Cloud size="small" top="180" />
+      <Cloud /> <Cloud size="small" top="180" />
+      <Cloud /> <Cloud size="small" top="180" />
       <div className="version">{version}</div>
     </div>
   )
